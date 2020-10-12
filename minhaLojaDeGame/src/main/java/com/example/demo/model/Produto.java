@@ -1,13 +1,10 @@
 package com.example.demo.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -22,36 +19,83 @@ public class Produto {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private long id; 
+	
 	@NotNull 
+	private String nome;
+	
+	@NotNull
+	private String marca;
+	
+	@NotNull
 	private String descricao;
 	
-	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("produto") 
-	private List<Produto> produto;
+	@NotNull
+	private Double preco;
 	
-	//GET and SET
+	
+	@ManyToOne
+	@JsonIgnoreProperties("produto")
+	private Categoria categoria;
+
+   //get and set
 	public long getId() {
 		return id;
 	}
+
 
 	public void setId(long id) {
 		this.id = id;
 	}
 
+
+	public String getNome() {
+		return nome;
+	}
+
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+
+	public String getMarca() {
+		return marca;
+	}
+
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+
 	public String getDescricao() {
 		return descricao;
 	}
+
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
-	public List<Produto> getProduto() {
-		return produto;
+
+	public Double getPreco() {
+		return preco;
 	}
 
-	public void setProduto(List<Produto> produto) {
-		this.produto = produto;
+
+	public void setPreco(Double preco) {
+		this.preco = preco;
+	}
+
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 	
-}
+	
+}	

@@ -12,7 +12,7 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository repo;
 	
-	public void save(Produto produto) {
+	public void save(TableProduto produto) {
 		repo.save(produto);
 	}
 

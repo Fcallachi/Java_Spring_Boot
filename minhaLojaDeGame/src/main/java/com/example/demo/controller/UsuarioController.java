@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.Categoria;
 import com.example.demo.model.Usuario;
 import com.example.demo.repository.CategoriaRepository;
 import com.example.demo.repository.UsuarioRepository;
@@ -24,6 +25,7 @@ import com.example.demo.repository.UsuarioRepository;
 @RequestMapping("/usuario")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UsuarioController {
+	
 	@Autowired
 	private UsuarioRepository repository;
 	
@@ -49,10 +51,12 @@ public class UsuarioController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(email));
 	}
 	
-	@PutMapping
-	public ResponseEntity<Usuario> put (@RequestBody Usuario senha){
+	@PutMapping("/{id}")
+	public ResponseEntity<Usuario> put(@PathVariable Long id, @RequestBody Usuario senha){
+		senha.setId(id);
 		return ResponseEntity.status(HttpStatus.OK).body(repository.save(senha));
-	}
+	} 
+	
 	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable long id) {

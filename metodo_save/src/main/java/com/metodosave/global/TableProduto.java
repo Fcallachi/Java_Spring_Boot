@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Produto {
+public class TableProduto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +48,7 @@ public class Produto {
 		this.preco = preco;
 	}
 	//contructor
-	protected Produto(Long id, String nome, String marca,
+	protected TableProduto(Long id, String nome, String marca,
 			String criado_em, float preco) {
 		super();
 		this.id=id;
@@ -57,6 +57,8 @@ public class Produto {
 		this.criado_em=criado_em;
 		this.preco=preco;
 				
+	}
+	public TableProduto() {
 	}
 	
 }

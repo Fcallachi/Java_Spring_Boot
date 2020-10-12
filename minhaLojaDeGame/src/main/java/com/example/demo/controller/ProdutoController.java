@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.Categoria;
 import com.example.demo.model.Produto;
 import com.example.demo.repository.ProdutoRepository;
 
 
 @RestController 
-@CrossOrigin (origins = "*", allowedHeaders = "*")
 @RequestMapping("/produto")
+@CrossOrigin (origins = "*", allowedHeaders = "*")
 public class ProdutoController {
 
 	@Autowired
@@ -40,7 +41,7 @@ public class ProdutoController {
 	}
 	
 	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<Produto>> getByName(@PathVariable String nome){
+	public ResponseEntity<List<Produto>> getByNome(@PathVariable String nome){
 		return ResponseEntity.ok(repository.findAllByNomeContainingIgnoreCase(nome));
 	} 									
 	
@@ -50,11 +51,12 @@ public class ProdutoController {
 				.body(repository.save(produto));
 	}
 
-	@PutMapping
-	public ResponseEntity<Produto> put (@RequestBody Produto produto){
-		return ResponseEntity.ok(repository.save(produto));				
+	@PutMapping("/{id}")
+	public ResponseEntity<Produto> put(@PathVariable Long id, @RequestBody Produto produto){
+		produto.setId(id);
+		return ResponseEntity.status(HttpStatus.OK).body(repository.save(produto));
 	} 
-	
+		
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable long id) {
 		repository.deleteById(id);

@@ -9,6 +9,7 @@ import com.example.demo.model.Categoria;
 
 
 @Repository
-public interface CategoriaRepository extends JpaRepository<Categoria, Long> {	
-	public List<Categoria> findAllByTituloContainingIgnoreCase (String titulo);
+public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
+	public List<Categoria> findAllByCategoriaContainingIgnoreCase(String categoria);
+
 }

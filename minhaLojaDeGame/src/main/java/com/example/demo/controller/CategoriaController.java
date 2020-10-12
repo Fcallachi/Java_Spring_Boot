@@ -23,24 +23,25 @@ import com.example.demo.repository.CategoriaRepository;
 @RequestMapping("/categoria")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CategoriaController {
+	
 	@Autowired
 	private CategoriaRepository repository;
 	
 	@GetMapping
-	public ResponseEntity<List<Categoria>> GetAll(){
+	public ResponseEntity<List<Categoria>> getAll(){
 		return ResponseEntity.ok(repository.findAll());
 	}
-
+	
 	@GetMapping("/{id}")
-	public ResponseEntity<Categoria> GetById(@PathVariable long id){
+	public ResponseEntity<Categoria> getById(@PathVariable long id){
 		return repository.findById(id)
 				.map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
-	@GetMapping("/titulo/{titulo}")
-	public ResponseEntity<List<Categoria>> GetByTitulo(@PathVariable String titulo){
-		return ResponseEntity.ok(repository.findAllByTituloContainingIgnoreCase(titulo));
+	@GetMapping("/categoria/{categoria}")
+	public ResponseEntity<List<Categoria>> getByCategoria(@PathVariable String categoria){
+		return ResponseEntity.ok(repository.findAllByCategoriaContainingIgnoreCase(categoria));
 	}
 	
 	@PostMapping
@@ -48,10 +49,11 @@ public class CategoriaController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(categoria));
 	}
 	
-	@PutMapping
-	public ResponseEntity<Categoria> put (@RequestBody Categoria postagem){
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(postagem));
-	}
+	@PutMapping("/{id}")
+	public ResponseEntity<Categoria> put(@PathVariable Long id, @RequestBody Categoria categoria){
+		categoria.setId(id);
+		return ResponseEntity.status(HttpStatus.OK).body(repository.save(categoria));
+	} 
 	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable long id) {
